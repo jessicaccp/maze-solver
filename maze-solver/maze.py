@@ -4,16 +4,24 @@ from point import Point
 
 
 class Maze:
-    def __init__(self, x1, y1, n_cols, n_rows, cell_size, window):
+    __x1: float
+    __y1: float
+    __n_rows: int
+    __n_cols: int
+    __cell_size: float
+    __window: Window
+    __cells: list[list[Cell]]
+
+    def __init__(self, x1: float, y1: float, n_cols: int, n_rows: int, cell_size: float, window: Window):
         self.__x1 = x1
         self.__y1 = y1
         self.__n_rows = n_rows
         self.__n_cols = n_cols
         self.__cell_size = cell_size
         self.__window = window
-        self._create_cells()
+        self.__create_cells()
 
-    def _create_cells(self):
+    def __create_cells(self) -> None:
         self.__cells = []
 
         for x in range(1, self.__n_cols + 1):
@@ -27,6 +35,10 @@ class Maze:
                           self.__y1 + self.__cell_size * y),
                     self.__window))
 
-        for col in self.__cells:
-            for cell in col:
-                cell.draw()
+                self.__draw_cell(x - 1, y - 1)
+
+    def __draw_cell(self, i: int, j: int) -> None:
+        self.__cells[i][j].draw()
+
+    def __animate(self):
+        pass
