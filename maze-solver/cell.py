@@ -1,6 +1,7 @@
 from point import Point
 from window import Window
 from line import Line
+from typing import Optional, Union
 
 
 class Cell:
@@ -14,9 +15,10 @@ class Cell:
     __y1: float
     __y2: float
     __y3: float
-    __window: Window
+    __window: Window | None
 
-    def __init__(self, point1: Point, point2: Point, window: Window):
+    def __init__(self, point1: Point, point2: Point,
+                 window: Window | None = None):
         self.has_top_wall = True
         self.has_right_wall = True
         self.has_bottom_wall = True
@@ -33,6 +35,8 @@ class Cell:
         self.__window = window
 
     def draw(self) -> None:
+        assert self.__window is not None
+
         if self.has_top_wall:
             self.__window.draw_line(Line(
                 Point(self.__x1, self.__y1),
@@ -54,6 +58,8 @@ class Cell:
                 Point(self.__x1, self.__y2)))
 
     def __draw_move(self, cell: 'Cell', undo: bool = False) -> None:
+        assert self.__window is not None
+
         if undo:
             color = "gray"
         else:

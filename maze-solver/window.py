@@ -25,7 +25,8 @@ class Window:
 
     def __create_canvas(self) -> None:
         self.__canvas = Canvas(
-            self.__root, bg=self.__bg_color, width=self.__width, height=self.__height)
+            self.__root, bg=self.__bg_color, width=self.__width,
+            height=self.__height)
         self.__canvas.pack(fill=BOTH, expand=1)
 
     def redraw(self) -> None:

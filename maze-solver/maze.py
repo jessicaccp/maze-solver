@@ -10,10 +10,11 @@ class Maze:
     __n_rows: int
     __n_cols: int
     __cell_size: float
-    __window: Window
+    __window: Window | None
     __cells: list[list[Cell]]
 
-    def __init__(self, x1: float, y1: float, n_cols: int, n_rows: int, cell_size: float, window: Window):
+    def __init__(self, x1: float, y1: float, n_cols: int, n_rows: int,
+                 cell_size: float, window: Window | None = None):
         self.__x1 = x1
         self.__y1 = y1
         self.__n_rows = n_rows
@@ -43,5 +44,6 @@ class Maze:
         self.__animate()
 
     def __animate(self) -> None:
+        assert self.__window is not None
         self.__window.redraw()
         time.sleep(0.05)
