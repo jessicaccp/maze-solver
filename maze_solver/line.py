@@ -1,5 +1,5 @@
 from tkinter import Canvas, BOTH
-from .point import Point
+from point import Point
 
 
 class Line:

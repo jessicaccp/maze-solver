@@ -1,6 +1,6 @@
-from .point import Point
-from .window import Window
-from .line import Line
+from point import Point
+from window import Window
+from line import Line
 
 
 class Cell:
