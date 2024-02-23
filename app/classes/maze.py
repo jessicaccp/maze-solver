@@ -1,6 +1,6 @@
-from window import Window
-from cell import Cell
-from point import Point
+from .window import Window
+from .cell import Cell
+from .point import Point
 import time
 
 
