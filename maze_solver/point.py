@@ -1,4 +1,6 @@
 class Point:
+    """A class used to represent a Point."""
+
     x: float
     y: float
 

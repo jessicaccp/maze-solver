@@ -5,6 +5,8 @@ import time
 
 
 class Maze:
+    """A class used to represent a Maze."""
+
     __x1: float
     __y1: float
     __n_rows: int
@@ -15,8 +17,11 @@ class Maze:
 
     def __init__(self, x1: float, y1: float, n_cols: int, n_rows: int,
                  cell_size: float, window: Window | None = None):
+
+        # The top left coordinate
         self.__x1 = x1
         self.__y1 = y1
+
         self.__n_rows = n_rows
         self.__n_cols = n_cols
         self.__cell_size = cell_size
@@ -27,6 +32,8 @@ class Maze:
         return self.__cells
 
     def __create_cells(self) -> None:
+        """Create and draw the initial state of the Maze Cells."""
+
         self.__cells = []
 
         for x in range(1, self.__n_cols + 1):
@@ -43,10 +50,14 @@ class Maze:
                 self.__draw_cell(x - 1, y - 1)
 
     def __draw_cell(self, i: int, j: int) -> None:
+        """Draw the Cell and update the Window."""
+
         self.__cells[i][j].draw()
         self.__animate()
 
     def __animate(self) -> None:
-        assert self.__window is not None
+        """Display the moves on the Window."""
+
+        assert self.__window is not None, "window is None"
         self.__window.redraw()
         time.sleep(0.05)
