@@ -32,24 +32,24 @@ class Cell:
 
         self.__window = window
 
-    def draw(self) -> None:
+    def _draw(self) -> None:
         if self.has_top_wall:
-            self.__window.draw_line(Line(
+            self.__window._draw_line(Line(
                 Point(self.__x1, self.__y1),
                 Point(self.__x2, self.__y1)))
 
         if self.has_bottom_wall:
-            self.__window.draw_line(Line(
+            self.__window._draw_line(Line(
                 Point(self.__x1, self.__y2),
                 Point(self.__x2, self.__y2)))
 
         if self.has_right_wall:
-            self.__window.draw_line(Line(
+            self.__window._draw_line(Line(
                 Point(self.__x2, self.__y1),
                 Point(self.__x2, self.__y2)))
 
         if self.has_left_wall:
-            self.__window.draw_line(Line(
+            self.__window._draw_line(Line(
                 Point(self.__x1, self.__y1),
                 Point(self.__x1, self.__y2)))
 
@@ -59,6 +59,6 @@ class Cell:
         else:
             color = "red"
 
-        self.__window.draw_line(Line(
+        self.__window._draw_line(Line(
             Point(self.__x3, self.__y3),
             Point(cell.__x3, cell.__y3)), color)

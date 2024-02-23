@@ -28,17 +28,17 @@ class Window:
             self.__root, bg=self.__bg_color, width=self.__width, height=self.__height)
         self.__canvas.pack(fill=BOTH, expand=1)
 
-    def __redraw(self) -> None:
+    def _redraw(self) -> None:
         self.__root.update_idletasks()
         self.__root.update()
 
     def wait_for_close(self) -> None:
         self.__is_running = True
         while self.__is_running:
-            self.__redraw()
+            self._redraw()
 
     def __close(self) -> None:
         self.__is_running = False
 
-    def draw_line(self, line: Line, fill_color: str = "black"):
-        line.draw(self.__canvas, fill_color)
+    def _draw_line(self, line: Line, fill_color: str = "black") -> None:
+        line._draw(self.__canvas, fill_color)
