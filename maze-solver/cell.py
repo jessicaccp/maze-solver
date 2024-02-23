@@ -53,7 +53,7 @@ class Cell:
                 Point(self.__x1, self.__y1),
                 Point(self.__x1, self.__y2)))
 
-    def draw_move(self, cell: 'Cell', undo: bool = False) -> None:
+    def __draw_move(self, cell: 'Cell', undo: bool = False) -> None:
         if undo:
             color = "gray"
         else:

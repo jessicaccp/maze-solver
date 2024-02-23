@@ -1,6 +1,7 @@
 from window import Window
 from cell import Cell
 from point import Point
+import time
 
 
 class Maze:
@@ -39,6 +40,8 @@ class Maze:
 
     def __draw_cell(self, i: int, j: int) -> None:
         self.__cells[i][j].draw()
+        self.__animate()
 
-    def __animate(self):
-        pass
+    def __animate(self) -> None:
+        self.__window.redraw()
+        time.sleep(0.05)
