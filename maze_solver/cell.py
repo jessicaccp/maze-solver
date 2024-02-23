@@ -1,7 +1,6 @@
-from point import Point
-from window import Window
-from line import Line
-from typing import Optional, Union
+from .point import Point
+from .window import Window
+from .line import Line
 
 
 class Cell:

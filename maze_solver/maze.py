@@ -1,6 +1,6 @@
-from window import Window
-from cell import Cell
-from point import Point
+from .window import Window
+from .cell import Cell
+from .point import Point
 import time
 
 
@@ -22,6 +22,9 @@ class Maze:
         self.__cell_size = cell_size
         self.__window = window
         self.__create_cells()
+
+    def get_cells(self) -> list[list[Cell]]:
+        return self.__cells
 
     def __create_cells(self) -> None:
         self.__cells = []
