@@ -44,25 +44,25 @@ class Cell:
 
         assert self.__window is not None, "window is None"
 
-        if self.has_top_wall:
-            self.__window.draw_line(Line(
-                Point(self.__x1, self.__y1),
-                Point(self.__x2, self.__y1)))
+        color = "black" if self.has_top_wall else "white"
+        self.__window.draw_line(Line(
+            Point(self.__x1, self.__y1),
+            Point(self.__x2, self.__y1)), color)
 
-        if self.has_bottom_wall:
-            self.__window.draw_line(Line(
-                Point(self.__x1, self.__y2),
-                Point(self.__x2, self.__y2)))
+        color = "black" if self.has_bottom_wall else "white"
+        self.__window.draw_line(Line(
+            Point(self.__x1, self.__y2),
+            Point(self.__x2, self.__y2)), color)
 
-        if self.has_right_wall:
-            self.__window.draw_line(Line(
-                Point(self.__x2, self.__y1),
-                Point(self.__x2, self.__y2)))
+        color = "black" if self.has_right_wall else "white"
+        self.__window.draw_line(Line(
+            Point(self.__x2, self.__y1),
+            Point(self.__x2, self.__y2)))
 
-        if self.has_left_wall:
-            self.__window.draw_line(Line(
-                Point(self.__x1, self.__y1),
-                Point(self.__x1, self.__y2)))
+        color = "black" if self.has_left_wall else "white"
+        self.__window.draw_line(Line(
+            Point(self.__x1, self.__y1),
+            Point(self.__x1, self.__y2)))
 
     def __draw_move(self, cell: 'Cell', undo: bool = False) -> None:
         """Draw a move from a Cell to another on the Window."""
