@@ -27,6 +27,7 @@ class Maze:
         self.__cell_size = cell_size
         self.__window = window
         self.__create_cells()
+        self.__break_entrance_and_exit()
 
     def get_cells(self) -> list[list[Cell]]:
         return self.__cells
@@ -61,3 +62,15 @@ class Maze:
         assert self.__window is not None, "window is None"
         self.__window.redraw()
         time.sleep(0.05)
+
+    def __break_entrance_and_exit(self):
+        """Create entrance and exit of the Maze."""
+
+        # Entrance cell
+        self.__cells[0][0].has_top_wall = False
+        self.__draw_cell(0, 0)
+
+        # Exit cell
+        self.__cells[self.__n_cols - 1][
+            self.__n_rows - 1].has_bottom_wall = False
+        self.__draw_cell(self.__n_cols - 1, self.__n_rows - 1)
