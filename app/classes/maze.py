@@ -2,6 +2,7 @@ from .window import Window
 from .cell import Cell
 from .point import Point
 import time
+import random
 
 
 class Maze:
@@ -16,7 +17,8 @@ class Maze:
     __cells: list[list[Cell]]
 
     def __init__(self, x1: float, y1: float, n_cols: int, n_rows: int,
-                 cell_size: float, window: Window | None = None):
+                 cell_size: float, window: Window | None = None,
+                 seed: int | None = None):
 
         # The top left coordinate
         self.__x1 = x1
@@ -26,8 +28,14 @@ class Maze:
         self.__n_cols = n_cols
         self.__cell_size = cell_size
         self.__window = window
+
+        if seed:
+            random.seed(seed)
+
         self.__create_cells()
         self.__break_entrance_and_exit()
+        self.__break_walls_rec(0, 0)
+        self.__reset_cells_visited()
 
     def get_cells(self) -> list[list[Cell]]:
         return self.__cells
@@ -63,7 +71,7 @@ class Maze:
         self.__window.redraw()
         time.sleep(0.05)
 
-    def __break_entrance_and_exit(self):
+    def __break_entrance_and_exit(self) -> None:
         """Create entrance and exit of the Maze."""
 
         # Entrance cell
@@ -74,3 +82,55 @@ class Maze:
         self.__cells[self.__n_cols - 1][
             self.__n_rows - 1].has_bottom_wall = False
         self.__draw_cell(self.__n_cols - 1, self.__n_rows - 1)
+
+    def __break_walls_rec(self, i: int, j: int) -> None:
+        """Break the walls of the cells to create the maze itself."""
+
+        current = self.__cells[i][j]
+        current.visited = True
+
+        while True:
+            possible_directions: list[tuple] = []
+
+            if i - 1 >= 0:
+                if not self.__cells[i - 1][j].visited:
+                    possible_directions.append((i - 1, j, "left"))
+            if j - 1 >= 0:
+                if not self.__cells[i][j - 1].visited:
+                    possible_directions.append((i, j - 1, "up"))
+            if i + 1 < self.__n_cols:
+                if not self.__cells[i + 1][j].visited:
+                    possible_directions.append((i + 1, j, "right"))
+            if j + 1 < self.__n_rows:
+                if not self.__cells[i][j + 1].visited:
+                    possible_directions.append((i, j + 1, "down"))
+
+            if possible_directions == []:
+                self.__draw_cell(i, j)
+                return
+
+            next_i, next_j, direction = random.choice(possible_directions)
+            next: Cell = self.__cells[next_i][next_j]
+
+            match direction:
+                case "up":
+                    current.has_top_wall = False
+                    next.has_bottom_wall = False
+                case "down":
+                    current.has_bottom_wall = False
+                    next.has_top_wall = False
+                case "right":
+                    current.has_right_wall = False
+                    next.has_left_wall = False
+                case "left":
+                    current.has_left_wall = False
+                    next.has_right_wall = False
+                case _:
+                    raise Exception("invalid direction")
+
+            self.__break_walls_rec(next_i, next_j)
+
+    def __reset_cells_visited(self) -> None:
+        for list in self.__cells:
+            for cell in list:
+                cell.visited = False

@@ -17,6 +17,7 @@ class Cell:
     __y2: float
     __y3: float
     __window: Window | None
+    visited: bool
 
     def __init__(self, point1: Point, point2: Point,
                  window: Window | None = None):
@@ -39,6 +40,8 @@ class Cell:
         # Window in which the Cell is displayed
         self.__window = window
 
+        self.visited = False
+
     def draw(self) -> None:
         """Draw the Cell walls."""
 
@@ -57,12 +60,12 @@ class Cell:
         color = "black" if self.has_right_wall else "white"
         self.__window.draw_line(Line(
             Point(self.__x2, self.__y1),
-            Point(self.__x2, self.__y2)))
+            Point(self.__x2, self.__y2)), color)
 
         color = "black" if self.has_left_wall else "white"
         self.__window.draw_line(Line(
             Point(self.__x1, self.__y1),
-            Point(self.__x1, self.__y2)))
+            Point(self.__x1, self.__y2)), color)
 
     def __draw_move(self, cell: 'Cell', undo: bool = False) -> None:
         """Draw a move from a Cell to another on the Window."""
