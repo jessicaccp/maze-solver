@@ -67,7 +67,7 @@ class Cell:
             Point(self.__x1, self.__y1),
             Point(self.__x1, self.__y2)), color)
 
-    def __draw_move(self, cell: 'Cell', undo: bool = False) -> None:
+    def draw_move(self, cell: 'Cell', undo: bool = False) -> None:
         """Draw a move from a Cell to another on the Window."""
 
         assert self.__window is not None, "window is None"
