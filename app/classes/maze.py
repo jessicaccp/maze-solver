@@ -15,6 +15,8 @@ class Maze:
     __cell_size: float
     __window: Window | None
     __cells: list[list[Cell]]
+    __entrance: Cell
+    __exit: Cell
 
     def __init__(self, x1: float, y1: float, n_cols: int, n_rows: int,
                  cell_size: float, window: Window | None = None,
@@ -36,6 +38,7 @@ class Maze:
         self.__break_entrance_and_exit()
         self.__break_walls_rec(0, 0)
         self.__reset_cells_visited()
+        print(self.solve())
 
     def get_cells(self) -> list[list[Cell]]:
         return self.__cells
@@ -74,13 +77,12 @@ class Maze:
     def __break_entrance_and_exit(self) -> None:
         """Create entrance and exit of the Maze."""
 
-        # Entrance cell
-        self.__cells[0][0].has_top_wall = False
+        self.__entrance = self.__cells[0][0]
+        self.__entrance.has_top_wall = False
         self.__draw_cell(0, 0)
 
-        # Exit cell
-        self.__cells[self.__n_cols - 1][
-            self.__n_rows - 1].has_bottom_wall = False
+        self.__exit = self.__cells[self.__n_cols - 1][self.__n_rows - 1]
+        self.__exit.has_bottom_wall = False
         self.__draw_cell(self.__n_cols - 1, self.__n_rows - 1)
 
     def __break_walls_rec(self, i: int, j: int) -> None:
@@ -134,3 +136,53 @@ class Maze:
         for list in self.__cells:
             for cell in list:
                 cell.visited = False
+
+    def solve(self) -> bool:
+        return self.__solve_rec(0, 0)
+
+    def __solve_rec(self, i: int, j: int) -> bool:
+        current: Cell = self.__cells[i][j]
+
+        self.__animate()
+        current.visited = True
+
+        if current == self.__exit:
+            return True
+
+        # right
+        if i + 1 < self.__n_cols and not current.has_right_wall:
+            next = self.__cells[i + 1][j]
+            if not next.visited:
+                current.draw_move(next)
+                if self.__solve_rec(i + 1, j):
+                    return True
+                next.draw_move(current)
+
+        # down
+        if j + 1 < self.__n_rows and not current.has_bottom_wall:
+            next = self.__cells[i][j + 1]
+            if not next.visited:
+                current.draw_move(next)
+                if self.__solve_rec(i, j + 1):
+                    return True
+                next.draw_move(current)
+
+        # left
+        if i - 1 >= 0 and not current.has_left_wall:
+            next = self.__cells[i - 1][j]
+            if not next.visited:
+                current.draw_move(next)
+                if self.__solve_rec(i - 1, j):
+                    return True
+                next.draw_move(current)
+
+        # top
+        if j - 1 >= 0 and not current.has_top_wall:
+            next = self.__cells[i][j - 1]
+            if not next.visited:
+                current.draw_move(next)
+                if self.__solve_rec(i, j - 1):
+                    return True
+                next.draw_move(current)
+
+        return False
