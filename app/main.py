@@ -1,9 +1,19 @@
 from classes.maze import Maze
 from classes.window import Window
 
+MAZE_X1 = 100
+MAZE_Y1 = 100
+MAZE_N_COLS = 5
+MAZE_N_ROWS = 2
+MAZE_CELL_SIZE = 100
+MAZE_WINDOW = Window(800, 600)
+
+
 def main():
-    w = Window(800, 600)
-    m = Maze(100, 100, 5, 2, 100, w)
-    w.wait_for_close()
-    
-main()
+    Maze(MAZE_X1, MAZE_Y1, MAZE_N_COLS,
+         MAZE_N_ROWS, MAZE_CELL_SIZE, MAZE_WINDOW)
+    MAZE_WINDOW.wait_for_close()
+
+
+if __name__ == '__main__':
+    main()
