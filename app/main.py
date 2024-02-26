@@ -3,9 +3,9 @@ from classes.window import Window
 
 MAZE_X1 = 100
 MAZE_Y1 = 100
-MAZE_N_COLS = 5
-MAZE_N_ROWS = 2
-MAZE_CELL_SIZE = 100
+MAZE_N_COLS = 20
+MAZE_N_ROWS = 13
+MAZE_CELL_SIZE = 30
 MAZE_WINDOW = Window(800, 600)
 
 

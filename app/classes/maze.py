@@ -72,7 +72,7 @@ class Maze:
 
         assert self.__window is not None, "window is None"
         self.__window.redraw()
-        time.sleep(0.05)
+        time.sleep(0.02)
 
     def __break_entrance_and_exit(self) -> None:
         """Create entrance and exit of the Maze."""
@@ -156,7 +156,7 @@ class Maze:
                 current.draw_move(next)
                 if self.__solve_rec(i + 1, j):
                     return True
-                next.draw_move(current)
+                next.draw_move(current, True)
 
         # down
         if j + 1 < self.__n_rows and not current.has_bottom_wall:
@@ -165,7 +165,7 @@ class Maze:
                 current.draw_move(next)
                 if self.__solve_rec(i, j + 1):
                     return True
-                next.draw_move(current)
+                next.draw_move(current, True)
 
         # left
         if i - 1 >= 0 and not current.has_left_wall:
@@ -174,7 +174,7 @@ class Maze:
                 current.draw_move(next)
                 if self.__solve_rec(i - 1, j):
                     return True
-                next.draw_move(current)
+                next.draw_move(current, True)
 
         # top
         if j - 1 >= 0 and not current.has_top_wall:
@@ -183,6 +183,6 @@ class Maze:
                 current.draw_move(next)
                 if self.__solve_rec(i, j - 1):
                     return True
-                next.draw_move(current)
+                next.draw_move(current, True)
 
         return False

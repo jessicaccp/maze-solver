@@ -25,14 +25,19 @@ class Window:
 
         self.__root = Tk()
         self.__root.title("Maze Solver")
+        self.__root.geometry(f"{self.__width}x{self.__height}")
         self.__root.protocol("WM_DELETE_WINDOW", self.__close)
 
     def __create_canvas(self) -> None:
         """Create the Canvas widget of the root widget."""
 
         self.__canvas = Canvas(
-            self.__root, bg=self.__bg_color, width=self.__width,
-            height=self.__height)
+            self.__root,
+            bg=self.__bg_color,
+            width=self.__width,
+            height=self.__height
+        )
+
         self.__canvas.pack(fill=BOTH, expand=1)
 
     def redraw(self) -> None:
